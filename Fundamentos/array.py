@@ -16,4 +16,5 @@ for n in monstros:
 
 loop = True
 while loop == True: # Ou podemos só colocar while loop:
-    print("jogando") # tome cuidade while pode ser infinito e travar sua maquina ou o vs code 
+    print("jogando") # tome cuidade while pode ser infinito e travar sua maquina ou o vs code
+    
