@@ -6,6 +6,10 @@ import pygame as pg # apelidando a biblioteca pygame de pg
 window = pg.display.set_mode([1280,720])  # Aqui foi definido o tamanho da tela 1280 largura 720 altura
 title = pg.display.set_caption("Fotball pong")
 
+#Colocando a imagem de fundo o campo de futebol
+campo = pg.image.load("imagem/campo.png")
+window.blit(campo, (0,0))  #Função para pegar a imagem da variavel campo que se inicia na posição 0 em x e 0 em y
+
 
 # Agora criamos um loop com while para que a tela fique ligada
 loop = True # declaramos uma varivel que se incia verdadeira
