@@ -1,16 +1,18 @@
-#Importando a biblioteca pygame
-import pygame as pg # apelidando a biblioteca de pg
+# Importando a biblioteca pygame para desenvolvimento de jogos
+import pygame as pg # apelidando a biblioteca pygame de pg
 
-# Criando a janela ou a temla do jogo
-window = pg.display.set_mode([1280, 720])  #  A TELA DO NOSSO SISTEMA sera de 1280 por 720
-title = pg.display.set_caption("Fotball pong")  # Definindo o titulo do jogo
+# Criando a janela ou a tela do jogo
 
-# Definindo uma variavel para manter a tela aberta
+window = pg.display.set_mode([1280,720])  # Aqui foi definido o tamanho da tela 1280 largura 720 altura
+title = pg.display.set_caption("Fotball pong")
 
-loop = True
-while loop:
-    # Criando  um for para eventos
-    for events in pg.event.get():    # Criando um for para cada evento em eventos no pygame faça
-        if events.type == pg.QUIT:    # se o tipo de evento for do tipo quit ou seja clicar no x por exemplo
-            loop = False   # o loop que determina o while fica false e fecha a tela
-    pg.display.update()   # Usado para não fechar a janela do jogo enquanto o loop for true um evento
+
+# Agora criamos um loop com while para que a tela fique ligada
+loop = True # declaramos uma varivel que se incia verdadeira
+
+while loop:  # Enquanto lop for verdadeira faça
+
+    for events in pg.event.get():   # Events uma variavel temporaria para cada evento em todos os eventos do pygame faça
+        if events.type == pg.QUIT:   # Se o evento for igual a quit clicar no X por exemplo
+            loop = False # Loop recebe false e acaba o loop com while
+    pg.display.update()   # Enquanto loop for verdadeira deixe a tela ligado, Cuidado pois com while corremos o riscod e ter um loop infinito
