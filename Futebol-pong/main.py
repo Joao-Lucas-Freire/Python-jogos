@@ -10,7 +10,12 @@ title = pg.display.set_caption("Fotball pong")
 campo = pg.image.load("imagem/campo.png")
 
 player1 = pg.image.load("imagem/player1.png")   # vai criar uma imagem no pygame carregada da minha maquina
+player1_y = 280
+player1_moveup = False
+player1_movedown = False
 
+
+# Player 2
 player2 = pg.image.load("imagem/player2.png")
 
 bola = pg.image.load("imagem/ball.png")
@@ -23,7 +28,7 @@ bola_y = 332   # Duas variaveis que representam a posição da bolinha
 # Criando uma função que vai conter os itens do jogo
 def itens():
     window.blit(campo, (0,0))  
-    window.blit(player1,(48,280))
+    window.blit(player1,(48,player1_y))
     window.blit(player2, (1154,280))
     window.blit(bola,(bola_x,bola_y))
 
@@ -33,6 +38,18 @@ def move_bola():
     global bola_y      # Global serve para acessar e modificar uma variavel de escopo global dentro de uma função
     bola_x += 1
 
+# Criando uma variavel para mover o player 1
+def move_player1():
+    global player1_y
+    if player1_moveup:
+        player1_y -= 1.2 # Se o move up que seria ir para cima do player 1 for verdadeira tira - 10 que seria movar para cim
+    else:
+        player1_y += 0 # se não for continua parado
+
+    if player1_movedown:
+        player1_y += 1.2 # se o move down que seria ir para baixo for verdadeiro adicione 10 
+    else:
+        player1_y += 0
 
 
 # Agora criamos um loop com while para que a tela fique ligada
@@ -43,10 +60,22 @@ while loop:  # Enquanto lop for verdadeira faça
     for events in pg.event.get():   # Events uma variavel temporaria para cada evento em todos os eventos do pygame faça
         if events.type == pg.QUIT:   # Se o evento for igual a quit clicar no X por exemplo
             loop = False # Loop recebe false e acaba o loop com while
-    pg.display.update()   # Enquanto loop for verdadeira deixe a tela ligado, Cuidado pois com while corremos o riscod e ter um loop infinito
+        if events.type == pg.KEYDOWN:   # verifica se o tipo de evento é do tipo keydown seria tipo teclado
+            if events.key == pg.K_w:    # verifica qual key ou qual tecla foi apertado
+                player1_moveup = True            # se foi a tecla w tira o jogador move para cima
+            if events.key == pg.K_s:
+                player1_movedown = True # se a tecla pressionada for igual S o jogador move para baixo
+        if events.type == pg.KEYUP:
+            if events.key == pg.K_w:  
+                 player1_moveup =False         
+            if events.key == pg.K_s:
+                player1_movedown = False
+
 
     itens()   # Chamando as imagens na tela
     move_bola()   # Adicionando o função para mover a bola
+    move_player1()   # Função de movimentação para o player 1
+    pg.display.update()   # Enquanto loop for verdadeira deixe a tela ligado, Cuidado pois com while corremos o riscod e ter um loop infinito
 
 
 
