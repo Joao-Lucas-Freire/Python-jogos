@@ -6,6 +6,9 @@ pg.init()
 window = pg.display.set_mode([1280,720])  # Aqui foi definido o tamanho da tela 1280 largura 720 altura
 title = pg.display.set_caption("Fotball pong")
 
+win = pg.image.load("imagem/pontuacao/win.png")
+
+
 #Criando as imagens do jogo campo - p1 - p2 - ball
 campo = pg.image.load("imagem/campo.png")
 
@@ -27,7 +30,7 @@ bola = pg.image.load("imagem/ball.png")
 #Criando variaveis que contem a posição da bolinha
 bola_x = 618
 bola_y = 332   # Duas variaveis que representam a posição da bolinha
-bola_dir = -0.7   # Varivel que indica a movimentação da bola
+bola_dir = -2  # Varivel que indica a movimentação da bola
 bola_dir_y = 1  # Criando a movimentação da bola no sentido vertical
 # Criando uma função que vai conter os itens do jogo
 
@@ -39,15 +42,6 @@ score2_img = pg.image.load("imagem/pontuacao/0.png")
 
 
 
-
-def itens():
-    window.blit(campo, (0,0))  
-    window.blit(player1,(48,player1_y))
-    window.blit(player2, (1154,player2_y))
-    window.blit(bola,(bola_x,bola_y))
-    window.blit(score1_img, (500,50))
-    window.blit(score2_img, (720,50))
-# Criando uma função para mover a bolinha
 def move_bola():
     global bola_x
     global bola_y      # Global serve para acessar e modificar uma variavel de escopo global dentro de uma função
@@ -85,6 +79,7 @@ def move_bola():
          bola_dir *= -1
          score2 += 1
          score2_img = pg.image.load("imagem/pontuacao/" + str(score2) + ".png")  # Concatenamos o score com png para ir adicionando e trocando conforme acontece a pontuação
+        
     elif bola_x > 1320:
          bola_x = 618
          bola_y = 332
@@ -92,6 +87,7 @@ def move_bola():
          bola_dir_y *= -1
          score1 += 1
          score1_img = pg.image.load("imagem/pontuacao/" + str(score1) + ".png")
+         
 
     # Criandoa s verificações para colisão com player 1
 
@@ -100,7 +96,7 @@ def move_bola():
 def move_player1():
     global player1_y
     if player1_moveup:
-        player1_y -= 1.2 # Se o move up que seria ir para cima do player 1 for verdadeira tira - 10 que seria movar para cim
+        player1_y -= 1.2 # Se o move up que seria ir para cima do player 1 for verdadeira tira - 10 que seria movar para cima
     else:
         player1_y += 0 # se não for continua parado
 
@@ -116,10 +112,37 @@ def move_player1():
     
     #print(player1_y)  print usado para ver os limites
 
-#def move_player2():
-  #  global player2_y
-   # global bola_y
-   # player2_y = bola_y    # Criando aqui por hora para conseguir testar o jogo
+def move_player2():
+   global player2_y
+   if player2_moveup:
+        player2_y -= 1.2 # Se o move up que seria ir para cima do player 1 for verdadeira tira - 10 que seria movar para cima
+   else:
+        player2_y += 0 # se não for continua parado
+   
+   if player2_movedown:
+        player2_y += 1.2 # se o move down que seria ir para baixo for verdadeiro adicione 10 
+   else:
+        player2_y += 0
+       # Adicionando limites para o p1
+   if player2_y <= 22 :
+        player2_y = 22 # esse é o limite da minha tela na parte superior, dessa maneira não passa
+   elif player2_y >= 542.79:
+        player2_y = 542.79  # esse é o limite da parte inferior dessa maneira não passa
+
+def itens():
+    if score1 < 9 and score2 < 9:
+        window.blit(campo, (0,0))  
+        window.blit(player1,(48,player1_y))
+        window.blit(player2, (1154,player2_y))
+        window.blit(bola,(bola_x,bola_y))
+        window.blit(score1_img, (500,50))
+        window.blit(score2_img, (720,50))
+
+        move_bola()   # Adicionando o função para mover a bola
+        move_player1()   # Função de movimentação para o player 1
+        move_player2()
+    else:
+         window.blit(win, (300,300))
 
 
 # Agora criamos um loop com while para que a tela fique ligada
@@ -143,12 +166,20 @@ while loop:  # Enquanto lop for verdadeira faça
         
         # Agora criando a movimentação do player 2
 
+        if events.type ==  pg.KEYDOWN:
+            if events.key == pg.K_UP:
+               player2_moveup = True
+            
+            if events.key == pg.K_DOWN:
+               player2_movedown =  True
 
+        if events.type == pg.KEYUP:
+            if events.key == pg.K_UP:
+                player2_moveup = False
+            if events.key == pg.K_DOWN:
+                player2_movedown = False
 
     itens()   # Chamando as imagens na tela
-    move_bola()   # Adicionando o função para mover a bola
-    move_player1()   # Função de movimentação para o player 1
-    #move_player2()
     pg.display.update()   # Enquanto loop for verdadeira deixe a tela ligado, Cuidado pois com while corremos o riscod e ter um loop infinito
 
 
