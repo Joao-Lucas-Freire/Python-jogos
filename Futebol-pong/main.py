@@ -17,6 +17,10 @@ player1_movedown = False
 
 # Player 2
 player2 = pg.image.load("imagem/player2.png")
+player2_y = 280
+player2_moveup = False
+player2_movedown = False   # dos 2 player se inicia false pois se inicia parado
+
 
 bola = pg.image.load("imagem/ball.png")
 
@@ -29,7 +33,7 @@ bola_y = 332   # Duas variaveis que representam a posição da bolinha
 def itens():
     window.blit(campo, (0,0))  
     window.blit(player1,(48,player1_y))
-    window.blit(player2, (1154,280))
+    window.blit(player2, (1154,player2_y))
     window.blit(bola,(bola_x,bola_y))
 
 # Criando uma função para mover a bolinha
@@ -50,7 +54,13 @@ def move_player1():
         player1_y += 1.2 # se o move down que seria ir para baixo for verdadeiro adicione 10 
     else:
         player1_y += 0
-
+    # Adicionando limites para o p1
+    if player1_y <= 22 :
+       player1_y = 22 # esse é o limite da minha tela na parte superior, dessa maneira não passa
+    elif player1_y >= 542.79:
+        player1_y = 542.79  # esse é o limite da parte inferior dessa maneira não passa
+    
+    #print(player1_y)  print usado para ver os limites
 
 # Agora criamos um loop com while para que a tela fique ligada
 loop = True # declaramos uma varivel que se incia verdadeira
@@ -70,6 +80,8 @@ while loop:  # Enquanto lop for verdadeira faça
                  player1_moveup =False         
             if events.key == pg.K_s:
                 player1_movedown = False
+        # Agora criando a movimentação do player 2
+
 
 
     itens()   # Chamando as imagens na tela
