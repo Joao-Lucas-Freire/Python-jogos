@@ -129,6 +129,32 @@ def move_player2():
    elif player2_y >= 542.79:
         player2_y = 542.79  # esse é o limite da parte inferior dessa maneira não passa
 
+
+# Criando uma função de restart a qualquer momento do jogo e quando acabar apertando espaço
+def restart():
+               # Todas as variaveis ou imagens que mudou durante o jogo veem aqui e reiniciam
+    global bola_x
+    global bola_y      # Global serve para acessar e modificar uma variavel de escopo global dentro de uma função
+    global score1
+    global score2
+    global score1_img
+    global score2_img
+    global player1_y
+    global player2_y
+    bola_x = 618
+    bola_y = 332
+
+    score1 = 0
+    score2 = 0
+
+    score1_img = pg.image.load("imagem/pontuacao/0.png")
+    score2_img = pg.image.load("imagem/pontuacao/0.png")
+
+    player1_y = 280
+    player2_y = 280
+
+   
+
 def itens():
     if score1 < 9 and score2 < 9:
         window.blit(campo, (0,0))  
@@ -178,6 +204,11 @@ while loop:  # Enquanto lop for verdadeira faça
                 player2_moveup = False
             if events.key == pg.K_DOWN:
                 player2_movedown = False
+
+        # Criando a condição se para caso clique no espaço que vai reiniciar o jogo
+        if events.type == pg.KEYDOWN:
+            if events.key == pg.K_SPACE:
+                restart()
 
     itens()   # Chamando as imagens na tela
     pg.display.update()   # Enquanto loop for verdadeira deixe a tela ligado, Cuidado pois com while corremos o riscod e ter um loop infinito
