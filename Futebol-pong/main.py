@@ -2,7 +2,7 @@
 import pygame as pg # apelidando a biblioteca pygame de pg
 
 # Criando a janela ou a tela do jogo
-
+pg.init()
 window = pg.display.set_mode([1280,720])  # Aqui foi definido o tamanho da tela 1280 largura 720 altura
 title = pg.display.set_caption("Fotball pong")
 
@@ -30,18 +30,35 @@ bola_y = 332   # Duas variaveis que representam a posição da bolinha
 bola_dir = -0.7   # Varivel que indica a movimentação da bola
 bola_dir_y = 1  # Criando a movimentação da bola no sentido vertical
 # Criando uma função que vai conter os itens do jogo
+
+# Criando as variavel de pontuação
+score1 = 0
+score2 = 0
+score1_img = pg.image.load("imagem/pontuacao/0.png")
+score2_img = pg.image.load("imagem/pontuacao/0.png")
+
+
+
+
 def itens():
     window.blit(campo, (0,0))  
     window.blit(player1,(48,player1_y))
     window.blit(player2, (1154,player2_y))
     window.blit(bola,(bola_x,bola_y))
-
+    window.blit(score1_img, (500,50))
+    window.blit(score2_img, (720,50))
 # Criando uma função para mover a bolinha
 def move_bola():
     global bola_x
     global bola_y      # Global serve para acessar e modificar uma variavel de escopo global dentro de uma função
     global bola_dir
     global bola_dir_y
+    global score1
+    global score2
+    global score1_img
+    global score2_img
+
+
     bola_x += bola_dir
     bola_y += bola_dir_y   # Aqui adicionamos a movimentação da bola no eixo y
     if bola_x < 122.49:   # Aqui é o ponto de colisão com posição do meu boneco
@@ -59,20 +76,25 @@ def move_bola():
     elif bola_y >= 662:     # Adicionamos os limites para o bolinha
         bola_dir_y *= -1
 
-    if bola_x < -50:
-        bola_x = 618
-        bola_y = 332
-        bola_dir_y *= -1
-        bola_dir *= -1
+
+    # Quando a bola passa pro do limite player 1
+    if bola_x <= -50:
+         bola_x = 618
+         bola_y = 332
+         bola_dir_y *= -1
+         bola_dir *= -1
+         score2 += 1
+         score2_img = pg.image.load("imagem/pontuacao/" + str(score2) + ".png")  # Concatenamos o score com png para ir adicionando e trocando conforme acontece a pontuação
     elif bola_x > 1320:
-        bola_x = 618
-        bola_y = 332
-        bola_dir *= -1
-        bola_dir_y *= -1
+         bola_x = 618
+         bola_y = 332
+         bola_dir *= -1
+         bola_dir_y *= -1
+         score1 += 1
+         score1_img = pg.image.load("imagem/pontuacao/" + str(score1) + ".png")
 
     # Criandoa s verificações para colisão com player 1
 
-    print(bola_y)
 
 # Criando uma variavel para mover o player 1
 def move_player1():
@@ -118,6 +140,7 @@ while loop:  # Enquanto lop for verdadeira faça
                  player1_moveup =False         
             if events.key == pg.K_s:
                 player1_movedown = False
+        
         # Agora criando a movimentação do player 2
 
 
