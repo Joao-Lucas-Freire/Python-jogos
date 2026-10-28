@@ -10,6 +10,19 @@ title = pg.display.set_caption("Fotball pong")
 campo = pg.image.load("imagem/campo.png")
 window.blit(campo, (0,0))  #Função para pegar a imagem da variavel campo que se inicia na posição 0 em x e 0 em y
 
+player1 = pg.image.load("imagem/player1.png")   # vai criar uma imagem no pygame carregada da minha maquina
+window.blit(player1,(48,280))
+
+player2 = pg.image.load("imagem/player2.png")
+window.blit(player2, (1154,280))
+
+
+# Criando a bola que ficara no centro da tela
+
+bola = pg.image.load("imagem/ball.png")
+window.blit(bola,(618,332))
+
+
 
 # Agora criamos um loop com while para que a tela fique ligada
 loop = True # declaramos uma varivel que se incia verdadeira
