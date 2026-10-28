@@ -27,8 +27,8 @@ bola = pg.image.load("imagem/ball.png")
 #Criando variaveis que contem a posição da bolinha
 bola_x = 618
 bola_y = 332   # Duas variaveis que representam a posição da bolinha
-
-
+bola_dir = -0.7   # Varivel que indica a movimentação da bola
+bola_dir_y = 1  # Criando a movimentação da bola no sentido vertical
 # Criando uma função que vai conter os itens do jogo
 def itens():
     window.blit(campo, (0,0))  
@@ -40,7 +40,39 @@ def itens():
 def move_bola():
     global bola_x
     global bola_y      # Global serve para acessar e modificar uma variavel de escopo global dentro de uma função
-    bola_x += 1
+    global bola_dir
+    global bola_dir_y
+    bola_x += bola_dir
+    bola_y += bola_dir_y   # Aqui adicionamos a movimentação da bola no eixo y
+    if bola_x < 122.49:   # Aqui é o ponto de colisão com posição do meu boneco
+       if player1_y < bola_y + 23:  # metade do tamanho da bola 23
+            if player1_y + 146 > bola_y:   # tamanho da imagem do jogador 146
+                bola_dir *= -1  # volta para o outro lado
+
+    if bola_x > 1114:   # Aqui é o ponto de colisão com posição do meu boneco
+           if player2_y < bola_y + 23:  # metade do tamanho da bola 23
+                if player2_y + 146 > bola_y:   # tamanho da imagem do jogador 146
+                    bola_dir *= -1  # volta para o outro lado
+    # Criando o limite superior
+    if bola_y <=2:
+        bola_dir_y *= -1
+    elif bola_y >= 662:     # Adicionamos os limites para o bolinha
+        bola_dir_y *= -1
+
+    if bola_x < -50:
+        bola_x = 618
+        bola_y = 332
+        bola_dir_y *= -1
+        bola_dir *= -1
+    elif bola_x > 1320:
+        bola_x = 618
+        bola_y = 332
+        bola_dir *= -1
+        bola_dir_y *= -1
+
+    # Criandoa s verificações para colisão com player 1
+
+    print(bola_y)
 
 # Criando uma variavel para mover o player 1
 def move_player1():
@@ -61,6 +93,12 @@ def move_player1():
         player1_y = 542.79  # esse é o limite da parte inferior dessa maneira não passa
     
     #print(player1_y)  print usado para ver os limites
+
+#def move_player2():
+  #  global player2_y
+   # global bola_y
+   # player2_y = bola_y    # Criando aqui por hora para conseguir testar o jogo
+
 
 # Agora criamos um loop com while para que a tela fique ligada
 loop = True # declaramos uma varivel que se incia verdadeira
@@ -87,6 +125,7 @@ while loop:  # Enquanto lop for verdadeira faça
     itens()   # Chamando as imagens na tela
     move_bola()   # Adicionando o função para mover a bola
     move_player1()   # Função de movimentação para o player 1
+    #move_player2()
     pg.display.update()   # Enquanto loop for verdadeira deixe a tela ligado, Cuidado pois com while corremos o riscod e ter um loop infinito
 
 
