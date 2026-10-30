@@ -15,5 +15,22 @@ class Obj():
         self.sprite.rect.y = y # mesma coisa aqui agora o obj sai do 0,0 e fica de acordo com sua posição quando foi criado 
     # criando a função para mostrar na tela
 
+        self.frame = 1
+
+        self.tick = 0
     def mostrar(self, window): # window é a janela ou a tela onde o objeto vai ser mostrado
         self.group.draw(window)
+
+
+# Toda vez que o self.frame mudar ele mostra uma aranha diferente
+    def anim(self):
+        self.tick +=1
+        if self.tick >= 8:
+           self.tick = 0
+           self.frame += 1
+        if self.frame > 4:
+            self.frame = 1
+            
+        self.sprite.image = pg.image.load("imagem/spider" + str(self.frame) + ".png")
+
+        

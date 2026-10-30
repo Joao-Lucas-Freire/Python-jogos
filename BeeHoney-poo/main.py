@@ -17,6 +17,9 @@ class Jogo():
         self.game = Game()
         self.loop = True  # criando um loop inicia no true
 
+        # controlando o fps
+        self.fps = pg.time.Clock()
+
 # criando a função tela para mostrar os itens na tela
     def tela(self):
         if not self.menu.change_scene:
@@ -38,6 +41,7 @@ class Jogo():
             self.tela()   # chama a variavel tela a variavel eventos e o display.update
             self.eventos()
             pg.display.update()
+            self.fps.tick(30)
 
  #Criando a tela do jogo
 jogo = Jogo(360,640, "BeeHoney")
