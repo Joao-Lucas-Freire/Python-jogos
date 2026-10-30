@@ -27,3 +27,4 @@ class Jogo():
             self.eventos()
             pg.display.update()
 
+ #Criando a tela do jogo
