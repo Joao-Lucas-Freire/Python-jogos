@@ -4,7 +4,7 @@ from obj import Obj
 class Menu():
     def __init__(self):
 
-        self.bg = Obj("Imagem/start.png",0,0)
+        self.bg = Obj("imagem/start.png",0,0)
         self.change_scene = False
 
     def tela(self,window):

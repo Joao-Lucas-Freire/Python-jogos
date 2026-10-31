@@ -9,6 +9,7 @@ class Game:
         self.bg2 = Obj("imagem/bg.png", 0, -640)
         self.change_scene = False
         self.spider = Obj("imagem/spider1.png", random.randrange(0,360), 200)
+        self.flower = Obj("imagem/florwer1.png", random.randrange(0, 360), 200)
 
 
     def tela(self, window):
@@ -33,7 +34,7 @@ class Game:
     def events(self, event):
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_DELETE:
-                self.change_scene == True
+                self.change_scene = True
 
 
     def move_spider(self):
