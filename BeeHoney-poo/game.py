@@ -16,11 +16,13 @@ class Game:
         self.bg.mostrar(window)
         self.bg2.mostrar(window)
         self.spider.mostrar(window)
+        self.flower.mostrar(window)
 
     def update(self):
         self.moverbg()
         self.spider.anim()
         self.move_spider()
+        self.move_flower()
 
     def moverbg(self):
         self.bg.sprite.rect.y += 20
@@ -41,4 +43,11 @@ class Game:
         self.spider.sprite.rect.y += 10
         if self.spider.sprite.rect.y >= 700:
             self.spider.sprite.kill() # dessa forma ao arannha sair da tela ela é eliminada
-            self.spider = Obj("imagem/spider1.png", random.randrange(0,360), -50)
+            self.spider = Obj("imagem/spider1.png", random.randrange(10,350), -50)
+
+    def move_flower(self):
+            self.flower.sprite.rect.y += 8
+            if self.flower.sprite.rect.y >= 700:
+                self.flower.sprite.kill()
+                self.flower = Obj("imagem/florwer1.png", random.randrange(10, 350), - 50 )
+                
