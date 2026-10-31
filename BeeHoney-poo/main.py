@@ -16,9 +16,8 @@ class Jogo():
         self.menu = Menu()
         self.game = Game()
         self.loop = True  # criando um loop inicia no true
-
         # controlando o fps
-        self.fps = pg.time.Clock()
+        self.fps = pg.time.Clock() 
 
 # criando a função tela para mostrar os itens na tela
     def tela(self):

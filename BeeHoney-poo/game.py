@@ -20,7 +20,8 @@ class Game:
 
     def update(self):
         self.moverbg()
-        self.spider.anim()
+        self.spider.anim("spider", 8, 5)
+        self.flower.anim("florwer", 4, 3)
         self.move_spider()
         self.move_flower()
 
@@ -46,7 +47,7 @@ class Game:
             self.spider = Obj("imagem/spider1.png", random.randrange(10,350), -50)
 
     def move_flower(self):
-            self.flower.sprite.rect.y += 8
+            self.flower.sprite.rect.y += 10
             if self.flower.sprite.rect.y >= 700:
                 self.flower.sprite.kill()
                 self.flower = Obj("imagem/florwer1.png", random.randrange(10, 350), - 50 )

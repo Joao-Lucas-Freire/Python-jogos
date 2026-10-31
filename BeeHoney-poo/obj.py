@@ -23,14 +23,15 @@ class Obj():
 
 
 # Toda vez que o self.frame mudar ele mostra uma aranha diferente
-    def anim(self):
+    def anim(self, image, tick, frame):
         self.tick +=1
-        if self.tick >= 8:
+        if self.tick == tick:
            self.tick = 0
+
            self.frame += 1
-        if self.frame > 4:
+        if self.frame == frame:
             self.frame = 1
             
-        self.sprite.image = pg.image.load("imagem/spider" + str(self.frame) + ".png")
+        self.sprite.image = pg.image.load("imagem/" + image + str(self.frame) + ".png")
 
         
