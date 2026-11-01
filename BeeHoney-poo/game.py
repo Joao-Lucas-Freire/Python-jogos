@@ -1,5 +1,5 @@
 import pygame as pg
-from obj import Obj
+from obj import Obj, Heroi
 import random
 
 
@@ -10,13 +10,14 @@ class Game:
         self.change_scene = False
         self.spider = Obj("imagem/spider1.png", random.randrange(0,360), 200)
         self.flower = Obj("imagem/florwer1.png", random.randrange(0, 360), 200)
-
+        self.heroi = Heroi("imagem/bee1.png", 150, 600)
 
     def tela(self, window):
         self.bg.mostrar(window)
         self.bg2.mostrar(window)
         self.spider.mostrar(window)
         self.flower.mostrar(window)
+        self.heroi.mostrar(window)
 
     def update(self):
         self.moverbg()
@@ -24,6 +25,9 @@ class Game:
         self.flower.anim("florwer", 4, 3)
         self.move_spider()
         self.move_flower()
+        self.heroi.anim("bee", 4, 5)
+        self.heroi.colisao(self.spider.group, "spider")
+        self.heroi.colisao(self.flower.group, "florwer") 
 
     def moverbg(self):
         self.bg.sprite.rect.y += 20

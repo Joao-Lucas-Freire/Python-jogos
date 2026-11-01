@@ -1,7 +1,7 @@
 # importando o pygame 
 import pygame as pg
 # imporatndo a classe Obj
-from obj import Obj
+from obj import Obj, Heroi
 
 from menu import Menu
 
@@ -34,7 +34,7 @@ class Jogo():
                 self.loop = False
             self.menu.events(i)
             self.game.events(i)
-
+            self.game.heroi.move_heroi(i)
     def update(self): # Criando a função para rodar o jogo
         while self.loop:  # enquanto a variavel loop for verdadeira faça
             self.tela()   # chama a variavel tela a variavel eventos e o display.update

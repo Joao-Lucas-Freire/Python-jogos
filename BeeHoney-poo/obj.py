@@ -34,4 +34,20 @@ class Obj():
             
         self.sprite.image = pg.image.load("imagem/" + image + str(self.frame) + ".png")
 
-        
+class Heroi(Obj):
+    def __init__(self, imagem, x, y):
+        super().__init__(imagem, x, y)
+
+    def move_heroi(self, event):
+        if event.type == pg.MOUSEMOTION:
+            self.sprite.rect.x = pg.mouse.get_pos()[0] - 35
+            self.sprite.rect.y = pg.mouse.get_pos()[1] - 30
+
+    def colisao(self, group, name):
+        name = name
+        colison = pg.sprite.spritecollide(self.sprite, group, True)
+
+        if name == "florwer" and colison:
+            print("colidiu com a flor")
+        elif name  == "spider" and colison:
+            print("colidiu com a aranha")
