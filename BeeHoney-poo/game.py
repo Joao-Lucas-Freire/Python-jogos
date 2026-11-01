@@ -25,6 +25,7 @@ class Game:
         self.heroi.mostrar(window)
         self.score.mostrar(window, 155,25)
         self.life.mostrar(window, 50, 50)
+        
     def update(self):
         self.moverbg()
         self.spider.anim("spider", 8, 5)
@@ -36,6 +37,7 @@ class Game:
         self.heroi.colisao(self.flower.group, "florwer") 
         self.score.update_text(str(self.heroi.pts))
         self.life.update_text(str(self.heroi.life))
+
         self.game_over()
     def moverbg(self):
         self.bg.sprite.rect.y += 20

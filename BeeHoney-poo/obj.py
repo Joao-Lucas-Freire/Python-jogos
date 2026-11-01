@@ -46,7 +46,7 @@ class Heroi(Obj):
         if event.type == pg.MOUSEMOTION:
             self.sprite.rect.x = pg.mouse.get_pos()[0] - 35
             self.sprite.rect.y = pg.mouse.get_pos()[1] - 30
-
+        
     def colisao(self, group, name):
         name = name
         colison = pg.sprite.spritecollide(self.sprite, group, True)
