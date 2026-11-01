@@ -37,6 +37,9 @@ class Obj():
 class Heroi(Obj):
     def __init__(self, imagem, x, y):
         super().__init__(imagem, x, y)
+        # vida e pontos ficam no __init__ para serem criados só uma vez
+        self.life = 3
+        self.pts = 0
 
     def move_heroi(self, event):
         if event.type == pg.MOUSEMOTION:
@@ -49,5 +52,7 @@ class Heroi(Obj):
 
         if name == "florwer" and colison:
             print("colidiu com a flor")
+            self.pts += 1
         elif name  == "spider" and colison:
             print("colidiu com a aranha")
+            self.life -= 1

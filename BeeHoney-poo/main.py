@@ -3,7 +3,7 @@ import pygame as pg
 # imporatndo a classe Obj
 from obj import Obj, Heroi
 
-from menu import Menu
+from menu import Menu, GameOver
 
 from game import Game
 
@@ -15,6 +15,7 @@ class Jogo():
         self.titulo = pg.display.set_caption((title))  # criando o titulo na janela de acordo com o que o usuario digitar
         self.menu = Menu()
         self.game = Game()
+        self.gameover = GameOver()
         self.loop = True  # criando um loop inicia no true
         # controlando o fps
         self.fps = pg.time.Clock() 
@@ -26,6 +27,13 @@ class Jogo():
         elif not self.game.change_scene:
             self.game.tela(self.window)
             self.game.update()
+        elif not self.gameover.change_scene:
+            # o game terminou (change_scene virou True), então mostra o game over
+            self.gameover.tela(self.window)
+        else:
+            # apertou ENTER no game over: recomeça o jogo
+            self.game = Game()
+            self.gameover = GameOver()
 
     # Criando a função eventos para gerir os eventos durante o jogo
     def eventos(self):
@@ -35,6 +43,9 @@ class Jogo():
             self.menu.events(i)
             self.game.events(i)
             self.game.heroi.move_heroi(i)
+            if self.game.change_scene:  # só escuta o game over depois que o jogo acabou
+                self.gameover.events(i)
+
     def update(self): # Criando a função para rodar o jogo
         while self.loop:  # enquanto a variavel loop for verdadeira faça
             self.tela()   # chama a variavel tela a variavel eventos e o display.update

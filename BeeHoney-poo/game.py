@@ -11,6 +11,8 @@ class Game:
         self.spider = Obj("imagem/spider1.png", random.randrange(0,360), 200)
         self.flower = Obj("imagem/florwer1.png", random.randrange(0, 360), 200)
         self.heroi = Heroi("imagem/bee1.png", 150, 600)
+        self.change_scene =  False
+
 
     def tela(self, window):
         self.bg.mostrar(window)
@@ -28,7 +30,7 @@ class Game:
         self.heroi.anim("bee", 4, 5)
         self.heroi.colisao(self.spider.group, "spider")
         self.heroi.colisao(self.flower.group, "florwer") 
-
+        self.game_over()
     def moverbg(self):
         self.bg.sprite.rect.y += 20
         self.bg2.sprite.rect.y += 20
@@ -55,4 +57,8 @@ class Game:
             if self.flower.sprite.rect.y >= 700:
                 self.flower.sprite.kill()
                 self.flower = Obj("imagem/florwer1.png", random.randrange(10, 350), - 50 )
-                
+
+
+    def game_over(self):
+        if self.heroi.life <= 0:
+            self.change_scene = True
