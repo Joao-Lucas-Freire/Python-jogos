@@ -1,11 +1,14 @@
 # importando o pygame 
 import pygame as pg
 # imporatndo a classe Obj
+pg.init()
 from obj import Obj, Heroi
 
 from menu import Menu, GameOver
 
 from game import Game
+
+from obj import Text
 
 # Criando a class Jogo
 class Jogo():

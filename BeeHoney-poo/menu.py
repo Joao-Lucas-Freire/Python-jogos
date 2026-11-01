@@ -1,4 +1,5 @@
 import pygame as pg
+pg.init()
 from obj import Obj
 
 class Menu():

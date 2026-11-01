@@ -1,5 +1,6 @@
 # importando a biblioteca pygame
 import pygame as pg
+pg.init()
 # Criando a classe obj cada imagem do jogo será um objeto dessa classe
 class Obj():
     def __init__(self, imagem, x,y): # Aqui recebemos o caminho da imagem a posição eixo x e eixo y
@@ -56,3 +57,14 @@ class Heroi(Obj):
         elif name  == "spider" and colison:
             print("colidiu com a aranha")
             self.life -= 1
+
+
+# Criando obj para criar um texto na tela
+class Text():
+    def __init__(self, size, text):
+        self.font = pg.font.SysFont("Arial bold", size)
+        self.render = self.font.render(text, True, (0,0,0))
+
+
+    def mostrar(self, window,x,y):
+        window.blit(self.render, (x,y))

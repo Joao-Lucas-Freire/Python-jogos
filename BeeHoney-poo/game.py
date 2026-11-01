@@ -1,7 +1,8 @@
 import pygame as pg
+pg.init()
 from obj import Obj, Heroi
 import random
-
+from obj import Text
 
 class Game:
     def __init__(self):
@@ -13,6 +14,8 @@ class Game:
         self.heroi = Heroi("imagem/bee1.png", 150, 600)
         self.change_scene =  False
 
+        self.score = Text(120, "0")
+        self.life = Text(30, "3")
 
     def tela(self, window):
         self.bg.mostrar(window)
@@ -20,7 +23,8 @@ class Game:
         self.spider.mostrar(window)
         self.flower.mostrar(window)
         self.heroi.mostrar(window)
-
+        self.score.mostrar(window, 155,25)
+        self.life.mostrar(window, 50, 50)
     def update(self):
         self.moverbg()
         self.spider.anim("spider", 8, 5)
