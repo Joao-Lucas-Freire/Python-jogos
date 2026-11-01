@@ -68,3 +68,6 @@ class Text():
 
     def mostrar(self, window,x,y):
         window.blit(self.render, (x,y))
+
+    def update_text (self, text):
+        self.render = self.font.render(text, True, (0,0,0))

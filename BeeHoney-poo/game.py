@@ -34,6 +34,8 @@ class Game:
         self.heroi.anim("bee", 4, 5)
         self.heroi.colisao(self.spider.group, "spider")
         self.heroi.colisao(self.flower.group, "florwer") 
+        self.score.update_text(str(self.heroi.pts))
+        self.life.update_text(str(self.heroi.life))
         self.game_over()
     def moverbg(self):
         self.bg.sprite.rect.y += 20
