@@ -1,5 +1,6 @@
 # importando a biblioteca pygame
 import pygame as pg
+import sys
 from game import Game
 from menu import Menu
 # Criando nossa classe main
@@ -10,6 +11,7 @@ class Main():
         self.loop = True
         self.game =  Game()
         self.menu = Menu()
+        self.clock = pg.time.Clock()
     def draw(self):
         if not self.menu.change_scene:
             self.menu.draw(self.window)
@@ -24,8 +26,9 @@ class Main():
     def events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
+                self.game.save_score()  # salva o recorde mesmo fechando no meio da partida
                 pg.quit()
-                self.loop = False 
+                sys.exit()
             if not self.menu.change_scene:
                 self.menu.events(event)
             
@@ -35,7 +38,8 @@ class Main():
         while self.loop:
             self.draw()
             self.events()
-            pg.display.update() 
+            pg.display.update()
+            self.clock.tick(180)  # limita o FPS: o jogo fica um pouco mais lento e igual em qualquer PC
 
 # Criando o jogo
 loop =  True

@@ -57,6 +57,9 @@ class Bird(Obj):
 
         self.play = True
         self.pts = 0
+
+        self.sound_hit = pg.mixer.Sound("assests/sounds/hit.ogg")
+        self.sound_point = pg.mixer.Sound("assests/sounds/point.ogg")
     def update(self, *args):
             self.anim()
             self.move()
@@ -90,11 +93,13 @@ class Bird(Obj):
     def colision_pipe(self, group):
          col = pg.sprite.spritecollide(self, group, False)
          if col:
+            self.sound_hit.play()
             self.play = False
 
     def colision_coin(self, group):
          col = pg.sprite.spritecollide(self, group, True)
          if col:
+            self.sound_point.play()
             self.pts += 1
 
 

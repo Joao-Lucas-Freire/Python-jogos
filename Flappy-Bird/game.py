@@ -26,6 +26,11 @@ class Game:
         self.max_score = 0
         self.check_score()
         self.timer = 0
+
+        self.spawn_time = random.randrange(140, 175)  # sorteado uma vez por cano, não a cada frame
+        self.last_gap_y = 200
+
+        self.music_play = False
     def draw(self, window):
             self.all_sprites.draw(window)
             self.score.draw(window, 150, 50)
@@ -36,13 +41,18 @@ class Game:
          self.move_bg()
          self.move_chao()
          if self.bird.play:
+            if not self.music_play:
+                 pg.mixer.music.load("assests/sounds/flappy_bird_chiptune.wav")
+                 pg.mixer.music.play(-1)  # -1 = repetir para sempre
+                 self.music_play = True
             self.spaw_pipes()
             self.bird.colision_coin(self.coin_group)
             self.bird.colision_pipe(self.pipe_group)
             self.score.text_update(str(self.bird.pts))
             self.all_sprites.update()
          else:
-              self.save_score
+              pg.mixer.music.stop()
+              self.save_score()
               self.game_over()
     def move_bg(self):
          self.bg.rect.x -=0.6
@@ -67,13 +77,21 @@ class Game:
     def spaw_pipes(self):
          self.ticks += 1
          
-         if self.ticks >= random.randrange(150, 180):
+         if self.ticks >= self.spawn_time:
               self.ticks = 0
-              pipe = Pipe("assests/pipe1.png", 360, random.randrange(340,400), self.all_sprites, self.pipe_group)
-              pipe2 = Pipe("assests/pipe2.png",360, random.randrange(-200, -160), self.all_sprites, self.pipe_group) 
+              self.spawn_time = random.randrange(140, 175)
 
-              coiny = (pipe.rect.bottom + pipe2.rect.top) / 2
-              coin = Coin("assests/0.png", 388, coiny - 24, self.all_sprites, self.coin_group)
+              gap = random.randrange(150, 190)  # tamanho do buraco entre os canos
+              # gap_y = onde o buraco começa; não pode pular muito longe do anterior
+              gap_y = random.randrange(70, 480 - gap - 50)
+              gap_y = max(self.last_gap_y - 180, min(self.last_gap_y + 180, gap_y))
+              self.last_gap_y = gap_y
+
+              pipe = Pipe("assests/pipe1.png", 360, gap_y + gap, self.all_sprites, self.pipe_group)
+              pipe2 = Pipe("assests/pipe2.png", 360, gap_y - pipe.rect.height, self.all_sprites, self.pipe_group)
+
+              coin = Coin("assests/0.png", 0, 0, self.all_sprites, self.coin_group)
+              coin.rect.center = (pipe.rect.centerx, gap_y + gap // 2)
 
     def game_over(self):
          self.timer += 1
@@ -90,6 +108,9 @@ class Game:
               file.close()
 
     def check_score(self):
-         file = open("save.txt", "r")  # usando o r podemos ler o que está no arquivo
-         self.max_score = int(file.read())
-         file.close()
+         try:
+              file = open("save.txt", "r")  # usando o r podemos ler o que está no arquivo
+              self.max_score = int(file.read())
+              file.close()
+         except (FileNotFoundError, ValueError):  # arquivo não existe ou está vazio
+              self.max_score = 0
