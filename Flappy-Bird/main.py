@@ -1,6 +1,7 @@
 # importando a biblioteca pygame
 import pygame as pg
 from game import Game
+from menu import Menu
 # Criando nossa classe main
 class Main():
     def __init__ (self, x, y, title):
@@ -8,11 +9,12 @@ class Main():
         self.title = pg.display.set_caption(title)
         self.loop = True
         self.game =  Game()
-
+        self.menu = Menu()
     def draw(self):
-        self.game.draw(self.window)
-        self.game.update()
-
+        #self.game.draw(self.window)
+        #self.game.update()
+        self.menu.draw(self.window)
+        
     def events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -26,4 +28,4 @@ class Main():
 
 # Criando o jogo
 jogo = Main(360, 640, "Flappy Bird")
-jogo.update()
+jogo.update() 

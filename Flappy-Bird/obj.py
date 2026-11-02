@@ -55,6 +55,8 @@ class Bird(Obj):
         self.vel = 0
         self.grav = 0.15
 
+        self.play = True
+        self.pts = 0
     def update(self, *args):
             self.anim()
             self.move()
@@ -74,13 +76,36 @@ class Bird(Obj):
         self.rect.y += self.vel
         if self.vel >= 2.35:
              self.vel = 2.35
-        
-        if key[pg.K_SPACE]:
-              self.vel -= 0.25
-        if self.vel <= -2.55:
-             self.vel = -2.55
-        if self.rect.y >=440:
-             self.rect.y = 440
+        if self.play:
+            if key[pg.K_SPACE]:
+                self.vel -= 0.25
+        if  self.vel <= -2.55:
+            self.vel = -2.55
+        if  self.rect.y >=440:
+            self.rect.y = 440
         elif self.rect.y <= 0:
-             self.rect.y = 0
-             self.vel = 4
+            self.rect.y = 0
+            self.vel = 4
+
+    def colision_pipe(self, group):
+         col = pg.sprite.spritecollide(self, group, False)
+         if col:
+            self.play = False
+
+    def colision_coin(self, group):
+         col = pg.sprite.spritecollide(self, group, True)
+         if col:
+            self.pts += 1
+
+
+class Text():
+    def __init__(self, size, text):
+        self.font = pg.font.Font("assests/font/font.ttf", size)
+        self.render = self.font.render(text, True, (255, 255, 255))
+
+    def draw(self, window, x , y):
+        window.blit(self.render, (x,y))
+
+    def text_update(self, text):
+        self.render = self.font.render(text, True, (255,255,255))
+    
