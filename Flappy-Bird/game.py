@@ -1,4 +1,4 @@
-from obj import Obj, Pipe, Coin
+from obj import Obj, Pipe, Coin, Bird
 import pygame as pg
 pg.init()
 import random
@@ -14,7 +14,7 @@ class Game:
         self.chao2 = Obj("assests/ground.png", 360, 480,self.all_sprites)
         
         self.ticks = 0
-
+        self.bird = Bird("assests/bird1.png", 50, 320, self.all_sprites)
         
     def draw(self, window):
             self.all_sprites.draw(window)

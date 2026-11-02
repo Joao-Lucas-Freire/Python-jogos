@@ -46,3 +46,26 @@ class Coin(Obj):
            self.image = pg.image.load("assests/" + str(self.ticks) + ".png")
 
 
+class Bird(Obj):
+    def __init__(self, imagem, x, y, *groups):
+        super().__init__(imagem, x, y, *groups)
+        self.ticks = 0
+        self.contador = 0
+
+    def update(self, *args):
+            self.anim()
+            self.move()
+        
+    def anim(self):
+            self.contador += 1
+            if self.contador >= 8:
+               self.contador = 0
+               self.ticks = (self.ticks + 1) % 4
+               self.image = pg.image.load("assests/bird" + str(self.ticks) + ".png")
+
+
+    def move(self):
+         key = pg.key.get_pressed()
+
+         if key[pg.K_SPACE]:
+              pass
