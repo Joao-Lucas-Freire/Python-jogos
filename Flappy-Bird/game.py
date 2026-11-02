@@ -24,7 +24,7 @@ class Game:
         self.score = Text(100, "0")
 
         self.max_score = 0
-
+        self.check_score()
         self.timer = 0
     def draw(self, window):
             self.all_sprites.draw(window)
@@ -42,6 +42,7 @@ class Game:
             self.score.text_update(str(self.bird.pts))
             self.all_sprites.update()
          else:
+              self.save_score
               self.game_over()
     def move_bg(self):
          self.bg.rect.x -=0.6
@@ -80,4 +81,15 @@ class Game:
               self.change_scene = True
 
 
-              
+    def save_score(self):
+         if self.bird.pts > self.max_score:
+              self.max_score = self.bird.pts
+              file = open("save.txt", "w")   # usando w podemos escrever dentro do arquivo
+
+              file.write(str(self.max_score))
+              file.close()
+
+    def check_score(self):
+         file = open("save.txt", "r")  # usando o r podemos ler o que está no arquivo
+         self.max_score = int(file.read())
+         file.close()

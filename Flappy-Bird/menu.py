@@ -1,4 +1,4 @@
-from obj import Obj
+from obj import Obj, Text
 import pygame as pg 
 pg.init()
 
@@ -16,6 +16,8 @@ class Menu(Obj):
         self.button_go = Obj("assests/go.png", 100, 500, self.all_sprites)
         self.change_scene =  False
 
+        self.text_score = Text(100, "0")
+
 
 
 
@@ -24,11 +26,13 @@ class Menu(Obj):
    
     def draw(self, window):
         self.all_sprites.draw(window)
-        self.move_chao()
-        self.move_bg()
+        self.text_score.draw(window, 160, 320)
 
-    def update(self):
+    def update(self, pts):
         self.all_sprites
+        self.move_bg()
+        self.move_chao()
+        self.text_score.text_update(pts)
 
 
 
