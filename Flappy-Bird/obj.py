@@ -22,7 +22,27 @@ class Pipe(Obj):
         if self.rect.x <=-100:
              self.kill()
 
-        
+class Coin(Obj):
+    def __init__(self, imagem, x, y, *groups):
+          super().__init__(imagem, x, y, *groups)
 
+          self.ticks = 0
+          self.contador = 0
+    
+    def update(self, *args):
+     self.move()
+     self.anim()
+
+    def move(self):
+        self.rect.x -= 1
+        if self.rect.x <=-100:
+             self.kill()
+
+    def anim(self):
+        self.contador += 1
+        if self.contador >= 5:
+           self.contador = 0
+           self.ticks = (self.ticks + 1) % 6
+           self.image = pg.image.load("assests/" + str(self.ticks) + ".png")
 
 

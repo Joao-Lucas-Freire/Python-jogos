@@ -1,6 +1,8 @@
-from obj import Obj, Pipe
+from obj import Obj, Pipe, Coin
 import pygame as pg
 pg.init()
+import random
+
 
 class Game:
     def __init__(self):
@@ -46,9 +48,15 @@ class Game:
 
     def spaw_pipes(self):
          self.ticks += 1
-
-         if self.ticks >= 120:
+         
+         if self.ticks >= random.randrange(150, 180):
               self.ticks = 0
-              pipe = Pipe("assests/pipe1.png", 360, 400, self.all_sprites)
-              pipe2 = Pipe("assests/pipe2.png",360, - 30, self.all_sprites)
+              pipe = Pipe("assests/pipe1.png", 360, random.randrange(390,460), self.all_sprites)
+              pipe2 = Pipe("assests/pipe2.png",360, random.randrange(-150, -30), self.all_sprites)
+              coiny = (pipe.rect.bottom + pipe2.rect.top) / 2
+              coin = Coin("assests/0.png", 388, coiny - 24, self.all_sprites)
+
+
+
+
               
