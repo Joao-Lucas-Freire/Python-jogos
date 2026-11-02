@@ -8,6 +8,7 @@ class Main():
         self.title = pg.display.set_caption(title)
         self.loop = True
         self.game =  Game()
+        
     def draw(self):
         self.game.draw(self.window)
         self.game.update()

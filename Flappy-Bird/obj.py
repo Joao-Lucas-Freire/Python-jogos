@@ -10,7 +10,17 @@ class Obj(pg.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         
+class Pipe(Obj):
+    def __init__(self, imagem, x, y , *groups):
+        super(). __init__(imagem, x, y, *groups)
 
+    def update(self, *args):
+            self.move()
+
+    def move(self):
+        self.rect.x -= 0.6
+        if self.rect.x <=-100:
+             self.kill()
 
         
 
