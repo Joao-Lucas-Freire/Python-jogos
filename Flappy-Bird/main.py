@@ -8,7 +8,7 @@ class Main():
         self.title = pg.display.set_caption(title)
         self.loop = True
         self.game =  Game()
-        
+
     def draw(self):
         self.game.draw(self.window)
         self.game.update()
@@ -16,13 +16,13 @@ class Main():
     def events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                self.loop = False
+                self.loop = False  
 
     def update(self):
         while self.loop:
             self.draw()
             self.events()
-            pg.display.update()
+            pg.display.update() 
 
 # Criando o jogo
 jogo = Main(360, 640, "Flappy Bird")

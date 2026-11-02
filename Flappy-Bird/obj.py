@@ -52,6 +52,9 @@ class Bird(Obj):
         self.ticks = 0
         self.contador = 0
 
+        self.vel = 0
+        self.grav = 0.15
+
     def update(self, *args):
             self.anim()
             self.move()
@@ -65,7 +68,19 @@ class Bird(Obj):
 
 
     def move(self):
-         key = pg.key.get_pressed()
+        key = pg.key.get_pressed()
 
-         if key[pg.K_SPACE]:
-              pass
+        self.vel += self.grav
+        self.rect.y += self.vel
+        if self.vel >= 2.35:
+             self.vel = 2.35
+        
+        if key[pg.K_SPACE]:
+              self.vel -= 0.25
+        if self.vel <= -2.55:
+             self.vel = -2.55
+        if self.rect.y >=440:
+             self.rect.y = 440
+        elif self.rect.y <= 0:
+             self.rect.y = 0
+             self.vel = 4
