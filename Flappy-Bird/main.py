@@ -11,14 +11,25 @@ class Main():
         self.game =  Game()
         self.menu = Menu()
     def draw(self):
-        #self.game.draw(self.window)
-        #self.game.update()
-        self.menu.draw(self.window)
-        
+        if not self.menu.change_scene:
+            self.menu.draw(self.window)
+            self.menu.update()
+
+        elif not self.game.change_scene:
+            self.game.draw(self.window)
+            self.game.update()
+        else:
+            self.loop = False
+            
     def events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                self.loop = False  
+                pg.quit()
+                self.loop = False 
+            if not self.menu.change_scene:
+                self.menu.events(event)
+            
+
 
     def update(self):
         while self.loop:
@@ -27,5 +38,7 @@ class Main():
             pg.display.update() 
 
 # Criando o jogo
-jogo = Main(360, 640, "Flappy Bird")
-jogo.update() 
+loop =  True
+while loop:
+    jogo = Main(360, 640, "Flappy Bird")
+    jogo.update() 

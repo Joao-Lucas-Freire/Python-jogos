@@ -19,8 +19,13 @@ class Game:
         self.ticks = 0
         self.bird = Bird("assests/bird1.png", 50, 320, self.all_sprites)
 
+        self.change_scene = False
 
         self.score = Text(100, "0")
+
+        self.max_score = 0
+
+        self.timer = 0
     def draw(self, window):
             self.all_sprites.draw(window)
             self.score.draw(window, 150, 50)
@@ -35,7 +40,9 @@ class Game:
             self.bird.colision_coin(self.coin_group)
             self.bird.colision_pipe(self.pipe_group)
             self.score.text_update(str(self.bird.pts))
-
+            self.all_sprites.update()
+         else:
+              self.game_over()
     def move_bg(self):
          self.bg.rect.x -=0.6
          self.bg2.rect.x -= 0.6
@@ -67,7 +74,10 @@ class Game:
               coiny = (pipe.rect.bottom + pipe2.rect.top) / 2
               coin = Coin("assests/0.png", 388, coiny - 24, self.all_sprites, self.coin_group)
 
-
+    def game_over(self):
+         self.timer += 1
+         if self.timer >= 45:
+              self.change_scene = True
 
 
               

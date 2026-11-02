@@ -14,6 +14,13 @@ class Menu(Obj):
         self.get_ready = Obj("assests/getready.png", 50, 150, self.all_sprites)
         self.table_score = Obj("assests/score.png", 21, 250, self.all_sprites)
         self.button_go = Obj("assests/go.png", 100, 500, self.all_sprites)
+        self.change_scene =  False
+
+
+
+
+
+
    
     def draw(self, window):
         self.all_sprites.draw(window)
@@ -44,3 +51,11 @@ class Menu(Obj):
     
         if self.chao2.rect.x <= 0:
             self.chao2.rect.x = 360
+
+    def events(self, event):
+         if event.type == pg.MOUSEBUTTONUP:
+              if self.button_go.rect.collidepoint(pg.mouse.get_pos()):
+                   self.change_scene = True
+         if event.type == pg.KEYDOWN:
+              if event.key == pg.K_SPACE:
+                 self.change_scene = True

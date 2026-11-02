@@ -40,7 +40,7 @@ class Coin(Obj):
 
     def anim(self):
         self.contador += 1
-        if self.contador >= 5:
+        if self.contador >= 20:
            self.contador = 0
            self.ticks = (self.ticks + 1) % 6
            self.image = pg.image.load("assests/" + str(self.ticks) + ".png")
@@ -63,7 +63,7 @@ class Bird(Obj):
         
     def anim(self):
             self.contador += 1
-            if self.contador >= 8:
+            if self.contador >= 30:
                self.contador = 0
                self.ticks = (self.ticks + 1) % 4
                self.image = pg.image.load("assests/bird" + str(self.ticks) + ".png")
@@ -74,13 +74,13 @@ class Bird(Obj):
 
         self.vel += self.grav
         self.rect.y += self.vel
-        if self.vel >= 2.35:
-             self.vel = 2.35
+        if self.vel >= 0.6:
+             self.vel = 0.6
         if self.play:
             if key[pg.K_SPACE]:
                 self.vel -= 0.25
-        if  self.vel <= -2.55:
-            self.vel = -2.55
+        if  self.vel <= -1:
+            self.vel = -1
         if  self.rect.y >=440:
             self.rect.y = 440
         elif self.rect.y <= 0:
